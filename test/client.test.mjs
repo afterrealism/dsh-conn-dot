@@ -53,3 +53,13 @@ test('signal merge table', () => {
   assert.equal(row('connecting', null), 'warn')
   assert.equal(row('connecting', true), 'up')
 })
+
+test('tooltip strings localize to Chinese', () => {
+  const setNav = (languages) => Object.defineProperty(globalThis, 'navigator', { value: { languages }, configurable: true })
+  setNav(['zh-CN', 'en'])
+  assert.equal(mod.__connDot.locale(), 'zh')
+  assert.equal(mod.__connDot.messages().up, '已连接到 dsh web 服务器')
+  setNav(['en-US'])
+  assert.equal(mod.__connDot.locale(), 'en')
+  assert.equal(mod.__connDot.messages().up, 'Connected to the dsh web server')
+})

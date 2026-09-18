@@ -37,3 +37,20 @@ Then add `"dsh-conn-dot"` to `dsh.profile.bundles` in
 ```sh
 node --test test/client.test.mjs
 ```
+
+## 中文说明 / Chinese
+
+在 DSH Web GUI 品牌标记（产品名旁边的鱼形图标）左上角显示一个绿色连接状态点，
+表示 UI 与 `dsh web` 服务器的连接状况：
+
+| 状态点 | 含义 |
+|---|---|
+| 🟢 绿色 | 已连接 — WebSocket 在线且/或探测有响应 |
+| 🟡 黄色 | 正在连接 / 尚未确定 |
+| 🔴 红色 | 已断开，或服务器停止响应 HTTP |
+
+合并两路信号：① 实时订阅 `ctx.connection.state`（WebSocket 恢复生命周期）；
+② 后台每 30 秒发起同源 `HEAD /` 探测，任何 HTTP 响应都算存活，
+网络层失败才算断开——可捕获 socket 半开、服务器假死的情况。
+悬停状态点可查看状态与上次检查时间；界面语言为中文时提示自动切换为中文
+（依据浏览器语言，`zh-*` 自动识别）。
