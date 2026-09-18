@@ -1,0 +1,4 @@
+# dsh-conn-dot bundle patch: insert this plugin row into the profile tree.
+- insert:
+    - id: dsh-conn-dot
+      name: dsh-conn-dot
